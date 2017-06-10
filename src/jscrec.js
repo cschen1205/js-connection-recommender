@@ -38,7 +38,7 @@ var jscrec = jscrec || {};
                             mapper[key].push(person);
                         }
                     } else {
-                        mapper[key] = [];
+                        mapper[key] = [ person ];
                     }
                 }
             }
