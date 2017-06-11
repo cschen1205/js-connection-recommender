@@ -1,7 +1,7 @@
 {
   "name": "js-connection-recommender",
-  "version": "1.0.4",
-  "description": "Package implements longest repeated substring for finding the longest repeated string within a text body",
+  "version": "1.0.5",
+  "description": "Package implements connection recommender",
   "author": "Caishun Chen",
   "contributors": [
     "Caishun Chen <cschen1205@gmail.com>"
