@@ -60,7 +60,7 @@ var jscrec = jscrec || {};
                                 p2_mapper[p1].push(person);
                             }
                         } else {
-                            p2_mapper[p2] = [ person ];
+                            p2_mapper[p1] = [ person ];
                         }
                     } else {
                         var p2_mapper = {};
@@ -68,6 +68,20 @@ var jscrec = jscrec || {};
                         p2_mapper[p1] = [ person ];
                     }
                 }
+            }
+        }
+        
+        for(var p1 in mapper) {
+            var p1_mapper = mapper[p1];
+            var removal = [];
+            for(var p2 in p1_mapper) {
+                if(p1_mapper[p2] == null) {
+                    removal.push(p2);
+                }
+            }
+            for(var i = 0; i < removal.length; ++i) {
+                var p2 = removal[i];
+                delete p1_mapper[p2];
             }
         }
         

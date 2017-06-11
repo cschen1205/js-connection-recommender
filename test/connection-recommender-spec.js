@@ -5,7 +5,7 @@ describe("Connection Recommender", function(){
    it("should be able to recommend common connnection to connect two unknown persons", function(){
        var adj = {};
        adj["Alice"] = [ "Bob", "Carole" ];
-       adj["Bob"] = ["Dave", "Jack"];
+       adj["Bob"] = ["Dave", "Jack", "Alice"];
        var result = jscrec.fitAndTransform(adj);
        console.log(result);
    }) ;
