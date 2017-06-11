@@ -16,10 +16,21 @@ var jscrec = jscrec || {};
             for(var i = 0; i < friends.length; ++i){
                 var p1 = friends[i];
                 var p2 = person;
-                if(p1 < p2) {
-                    mapper[p1+"_" +p2] = null;
+                if(p1 in mapper){
+                    var p1_mapper = mapper[p1];
+                    p1_mapper[p2] = null;
                 } else {
-                    mapper[p2+"_" +p1] = null;  
+                    var p1_mapper = {};
+                    mapper[p1] = p1_mapper;
+                    p1_mapper[p2] = null;
+                }
+                if(p2 in mapper) {
+                    var p2_mapper = mapper[p2];
+                    p2_mapper[p1] = null;
+                } else {
+                    var p2_mapper = {};
+                    mapper[p2] = p2_mapper;
+                    p2_mapper[p1] = null;
                 }
             }
             for(var i=0; i < friends.length; ++i) {
@@ -27,18 +38,34 @@ var jscrec = jscrec || {};
                     var p1 = friends[i];
                     var p2 = friends[j];
                     
-                    var key = p1 + "_" + p2;
-                    if(p1 > p2) {
-                        key = p2 + "_" + p1;
-                    }
-                    if(key in mapper){
-                        if(mapper[key] == null) {
-                            continue;
+                    if(p1 in mapper){
+                        var p1_mapper = mapper[p1];
+                        if(p2 in p1_mapper){
+                            if(p1_mapper[p2] != null){
+                                p1_mapper[p2].push(person);
+                            }
                         } else {
-                            mapper[key].push(person);
+                            p1_mapper[p2] = [ person ];
+                        }
+                        
+                    } else {
+                        var p1_mapper = {};
+                        mapper[p1] = p1_mapper;
+                        p1_mapper[p2] = [ person ];
+                    }
+                    if(p2 in mapper) {
+                        var p2_mapper = mapper[p2];
+                        if(p1 in p2_mapper){
+                            if(p2_mapper[p1] != null){
+                                p2_mapper[p1].push(person);
+                            }
+                        } else {
+                            p2_mapper[p2] = [ person ];
                         }
                     } else {
-                        mapper[key] = [ person ];
+                        var p2_mapper = {};
+                        mapper[p2] = p2_mapper;
+                        p2_mapper[p1] = [ person ];
                     }
                 }
             }
